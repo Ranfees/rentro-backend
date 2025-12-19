@@ -24,10 +24,19 @@ exports.adminLogin = async (req, res) => {
 		});
 
 		// send httpOnly cookie
-		res
-			.cookie('adminToken', token, { httpOnly: true, sameSite: 'lax' })
-			.status(200)
-			.json({ message: 'Login successful' });
+		// res
+		// 	.cookie('adminToken', token, { httpOnly: true, sameSite: 'lax' })
+		// 	.status(200)
+		// 	.json({ message: 'Login successful' });
+		res.cookie('adminToken', token, {
+			httpOnly: true,
+			secure: true,      // REQUIRED on HTTPS (Render)
+			sameSite: 'none',  // REQUIRED for cross-domain
+			maxAge: 24 * 60 * 60 * 1000
+			});
+
+res.status(200).json({ message: 'Login successful' });
+
 	} catch (err) {
 		console.log(err);
 		res.status(500).json({ message: 'Server error' });
@@ -35,9 +44,16 @@ exports.adminLogin = async (req, res) => {
 };
 
 // Admin Logout
-exports.adminLogout = (req, res) => {
-	res.clearCookie('adminToken').json({ message: 'Admin logged out' });
+
+	exports.adminLogout = (req, res) => {
+  res.clearCookie('adminToken', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none',
+  });
+  res.json({ message: 'Admin logged out' });
 };
+
 
 /*GET ALL USERS */
 exports.getAllUsers = async (req, res) => {

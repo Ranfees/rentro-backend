@@ -75,7 +75,7 @@ exports.forgotPassword = async (req, res) => {
 
 		await user.save();
 
-		const resetLink = `https://rentro-frontend-1.onrender.com//user/reset-password?token=${resetToken}`;
+		const resetLink = `https://rentro-frontend-1.onrender.com/user/reset-password?token=${resetToken}`;
 
 		// send email safely
 		try {

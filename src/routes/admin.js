@@ -16,6 +16,7 @@ const { isAdmin } = require("../middleware/admin");
 /* 
    AUTH ROUTES
  */
+
 router.post("/login", adminLogin);
 router.post("/logout", adminLogout);
 
