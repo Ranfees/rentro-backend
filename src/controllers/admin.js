@@ -86,38 +86,38 @@ exports.getAllUsers = async (req, res) => {
 /* =========================
    RECENT USERS (Dashboard)
 ========================= */
-// exports.getRecentUsers = async (req, res) => {
-// 	try {
-// 		const users = await User.find({ role: 'user' })
-// 			.select('-password')
-// 			.sort({ createdAt: -1 })
-// 			.limit(5);
+exports.getRecentUsers = async (req, res) => {
+	try {
+		const users = await User.find({ role: 'user' })
+			.select('-password')
+			.sort({ createdAt: -1 })
+			.limit(5);
 
-// 		const usersWithBookings = await Promise.all(
-// 			users.map(async (user) => {
-// 				const bookingsCount = await Booking.countDocuments({
-// 					user: user._id,
-// 				});
+		const usersWithBookings = await Promise.all(
+			users.map(async (user) => {
+				const bookingsCount = await Booking.countDocuments({
+					user: user._id,
+				});
 
-// 				return {
-// 					...user.toObject(),
-// 					bookingsCount,
-// 				};
-// 			})
-// 		);
+				return {
+					...user.toObject(),
+					bookingsCount,
+				};
+			})
+		);
 
-// 		const totalUsers = await User.countDocuments({ role: 'user' });
+		const totalUsers = await User.countDocuments({ role: 'user' });
 
-// 		res.json({
-// 			success: true,
-// 			users: usersWithBookings,
-// 			totalUsers,
-// 		});
-// 	} catch (error) {
-// 		console.error('RECENT USERS ERROR:', error);
-// 		res.status(500).json({ message: 'Server error' });
-// 	}
-// };
+		res.json({
+			success: true,
+			users: usersWithBookings,
+			totalUsers,
+		});
+	} catch (error) {
+		console.error('RECENT USERS ERROR:', error);
+		res.status(500).json({ message: 'Server error' });
+	}
+};
 
 /*USER STATS */
 exports.getUserStats = async (req, res) => {

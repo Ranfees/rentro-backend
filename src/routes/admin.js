@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   adminLogin,
   adminLogout,
-  // getRecentUsers,
+  getRecentUsers,
   getUserStats,
   getAllUsers,
   deleteUser,
@@ -34,7 +34,7 @@ router.get("/dashboard", isAdmin, (req, res) => {
 router.get("/users", isAdmin, getAllUsers);
 
 //  recent users (dashboard)
-// router.get("/users/recent", isAdmin, getRecentUsers);
+router.get("/users/recent", isAdmin, getRecentUsers);
 
 //  user count
 router.get("/users/stats", isAdmin, getUserStats);
