@@ -4,7 +4,6 @@ const {
 	login,
 	register,
 	logout,
-	getProfile,
 	forgotPassword,
 	resetPassword,
 	isLoggedIn,
