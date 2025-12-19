@@ -36,18 +36,25 @@ exports.login = async (req, res) => {
 		expiresIn: '7d',
 	});
 
-	res.cookie('userToken', token, {
-		httpOnly: true,
-		sameSite: 'strict',
-		secure: process.env.NODE_ENV === 'production',
-	});
+res.cookie('userToken', token, {
+  httpOnly: true,
+  secure: true,        // MUST be true on HTTPS
+  sameSite: 'none',    // MUST be 'none' for cross-domain
+  maxAge: 7 * 24 * 60 * 60 * 1000
+});
+
 
 	res.json({ message: 'Login successful' });
 };
 
 // LOGOUT
 exports.logout = (req, res) => {
-	res.clearCookie('userToken');
+	res.clearCookie('userToken', {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+});
+
 	res.json({ message: 'Logged out successfully' });
 };
 exports.forgotPassword = async (req, res) => {
@@ -68,7 +75,7 @@ exports.forgotPassword = async (req, res) => {
 
 		await user.save();
 
-		const resetLink = `http://localhost:5173/user/reset-password?token=${resetToken}`;
+		const resetLink = `https://rentro-frontend-1.onrender.com//user/reset-password?token=${resetToken}`;
 
 		// send email safely
 		try {
