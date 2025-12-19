@@ -21,31 +21,11 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cookieParser());
 
-//cors
-// const allowedOrigins = [
-// 	process.env.FRONTEND_URL_LOCAL, // local dev
-// 	process.env.FRONTEND_URL_PROD, // production
-// ];
-// cors
-
-// app.use(
-// 	cors({
-// 		origin: function (origin, callback) {
-// 			if (!origin) return callback(null, true);
-// 			if (!allowedOrigins.includes(origin)) {
-// 				return callback(new Error('CORS policy does not allow access from this origin'), false);
-// 			}
-// 			return callback(null, true);
-// 		},
-// 		credentials: true, // allow cookies/auth headers
-// 	})
-// );
-// ended
-
+S
 // cors
 app.use(
 	cors({
-		origin: 'http://localhost:5173',
+		origin: 'https://rentro-frontend-1.onrender.com',
 		credentials: true, // allow cookies / token in headers
 	})
 );
